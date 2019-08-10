@@ -1,0 +1,28 @@
+{
+  "name": "cryptoriders",
+  "version": "1.0.0",
+  "description": "crypto price tracker",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jkapl/cryptoriders.git"
+  },
+  "author": "Joel Kaplan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jkapl/cryptoriders/issues"
+  },
+  "homepage": "https://github.com/jkapl/cryptoriders#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
+  },
+  "devDependencies": {
+    "webpack": "^4.39.1",
+    "webpack-cli": "^3.3.6"
+  }
+}
