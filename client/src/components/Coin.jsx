@@ -1,8 +1,8 @@
 import React from 'react';
 
-const Coin = (props) => {
-  const { coinName } = props;
-  return <li>{coinName}</li>
+const Coin = ( { coin } ) => {
+  const { coinName, price } = coin;
+  return <li>{coinName} | {price}</li>
 }
 
 export default Coin;
