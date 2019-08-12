@@ -4,11 +4,11 @@ import axios from 'axios';
 
 const App = () => {
   const [coins, setCoin] = useState([ ]);
-  const [newCoin, setNewCoin] = useState({coinName: ''});
+  const [newCoin, setNewCoin] = useState({coinTicker: ''});
 
   const addCoin = (e) => {
     e.preventDefault();
-    setCoin([...coins, { coinName: newCoin.coinName } ])
+    setCoin([...coins, { coinTicker: newCoin.coinTicker } ])
   };
 
   useEffect(() => {
@@ -16,31 +16,28 @@ const App = () => {
       return
     }
     let queryString = coins.map(coin => {
-      return coin.coinName
+      return coin.coinTicker
     }).join(',');
-    axios.get(`/api/${queryString}`)
-      .then(response => {
-        coins.filter(coin => {
-          coin.coinName === 
-        });
-        setCoin([{coinName: 'bitcoin', price: response.data}]);
+    axios.get(`/api/tickers/${queryString}`)
+      .then(( { data } ) => {
+        setCoin([...data]);
       })
   }, [coins]);
 
   return (
     <div>
-      <h1>Ride the crypto dragon!</h1>
+      <h1>Add your crypto portfolio!</h1>
       <form>
         <label>
-          Add coin:
-            <input type="text" name="coin" placeholder="coin" value={newCoin.coinName} onChange={e => setNewCoin({coinName: e.target.value})}></input>
+          Add coin by entering a ticker:
+            <input type="text" name="coin" placeholder="coin" value={newCoin.coinTicker} onChange={e => setNewCoin({coinTicker: e.target.value})}></input>
         </label>
         <button onClick={ e => addCoin(e) }>
           Click here
         </button>
       </form>
       <ul>
-        { coins.map ( coin => <Coin coin={coin} key={coin.coinName}/> ) }
+        { coins.map ( coin => <Coin coin={coin} key={coin.name}/> ) }
       </ul>
     </div>
   );  
