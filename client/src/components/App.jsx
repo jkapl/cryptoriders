@@ -6,12 +6,27 @@ const App = () => {
   const [coins, setCoin] = useState([ ]);
   const [newCoin, setNewCoin] = useState({symbol: ''});
   const [coinToGet, getCoin] = useState('');
+  const [portfolio, setPortfolio] = useState('');
+  const [portfolios, addPortfolio] = useState([ ]);
 
   const addCoin = (e) => {
     setCoin([...coins, { symbol: newCoin.symbol } ]);
     getCoin(newCoin.symbol);
     e.preventDefault();
   };
+
+  const savePortfolio = (e) => {
+    addPortfolio([...portfolios, {name: portfolio, coins: coins}]);
+    axios({
+      method: 'post',
+      url: '/api/portfolios',
+      data: {
+        name: portfolio,
+        coins: coins
+      }
+    });
+    e.preventDefault();
+  }
 
   useEffect(() => {
     if (coins.length === 0) {
@@ -30,12 +45,21 @@ const App = () => {
         .then(( { data } ) => {
           setCoin([...data]);
         })
-    }, 10000);
+    }, 2000);
   }, [coinToGet]);
 
   return (
     <div>
       <h1>Add your crypto portfolio!</h1>
+      <form>
+        <label>
+          <input type="text" name="portfolio" placeholder="portfolio" value={portfolio} onChange={e => setPortfolio(e.target.value)}></input>
+        </label>
+        <button onClick={e => savePortfolio(e)}>
+          Save this portfolio
+        </button>
+      </form>
+      <p> {portfolios.map(portfolio => portfolio.name)}</p>
       <form>
         <label>
           Add coin by entering a ticker:
@@ -45,6 +69,7 @@ const App = () => {
           Click here
         </button>
       </form>
+      <br></br>
       <table>
         <tbody>
           <tr> <td>Coin</td><td>Ticker</td><td>Current Price</td><td>Percent Change (1hr)</td> </tr>
