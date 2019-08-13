@@ -15,6 +15,16 @@ const App = () => {
     e.preventDefault();
   };
 
+  const showPortfolio = (e) => {
+    console.log(e.target.value);
+    axios.get(`/api/portfolios/${e.target.value}`)
+      .then( ({ data }) => {
+        console.log(data);
+        setCoin([...data.coins]);
+      });
+    e.preventDefault();
+  }
+
   const savePortfolio = (e) => {
     addPortfolio([...portfolios, {name: portfolio, coins: coins}]);
     axios({
@@ -45,7 +55,7 @@ const App = () => {
         .then(( { data } ) => {
           setCoin([...data]);
         })
-    }, 2000);
+    }, 15000);
   }, [coinToGet]);
 
   return (
@@ -59,7 +69,9 @@ const App = () => {
           Save this portfolio
         </button>
       </form>
-      <p> {portfolios.map(portfolio => portfolio.name)}</p>
+      <ul> {portfolios.map(portfolio => 
+        <button value={portfolio.name} onClick={e => showPortfolio(e)}>{portfolio.name}</button>)}
+      </ul>
       <form>
         <label>
           Add coin by entering a ticker:
