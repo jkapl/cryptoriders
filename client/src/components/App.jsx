@@ -5,26 +5,33 @@ import axios from 'axios';
 const App = () => {
   const [coins, setCoin] = useState([ ]);
   const [newCoin, setNewCoin] = useState({symbol: ''});
-  const [url, setUrl] = useState('');
+  const [coinToGet, getCoin] = useState('');
 
   const addCoin = (e) => {
     setCoin([...coins, { symbol: newCoin.symbol } ]);
-    setUrl(newCoin.symbol);
+    getCoin(newCoin.symbol);
     e.preventDefault();
   };
 
   useEffect(() => {
-    console.log(coins.length)
     if (coins.length === 0) {
       return
     }
     let queryString = coins.map(coin => coin.symbol).join(',');
-    console.log(coins);
     axios.get(`/api/tickers/${queryString}`)
       .then(( { data } ) => {
         setCoin([...data]);
       })
-  }, [url]);
+    for (var i = 0; i < 99999; i++) {
+      clearInterval(i);
+    }
+    let updatePrices = setInterval(()=> {
+      axios.get(`/api/tickers/${queryString}`)
+        .then(( { data } ) => {
+          setCoin([...data]);
+        })
+    }, 10000);
+  }, [coinToGet]);
 
   return (
     <div>
@@ -40,6 +47,7 @@ const App = () => {
       </form>
       <table>
         <tbody>
+          <tr> <td>Coin</td><td>Ticker</td><td>Current Price</td><td>Percent Change (1hr)</td> </tr>
         { coins.map ( coin => <Coin coin={coin} key={coin.symbol}/> ) }
         </tbody>
       </table>
