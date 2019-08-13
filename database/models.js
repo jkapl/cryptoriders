@@ -13,6 +13,20 @@ module.exports = {
         res.sendStatus(200);
       }
     })
+  },
+
+  getPortfolio: (req, res) => {
+    console.log(req.params.portfolio);
+    portfolio.findOne({
+      name: req.params.portfolio
+    }, (err, result) => {
+      if (err) {
+        console.log(err)
+      } else {
+        console.log(result);
+        res.send(result);
+      }
+    })
   }
 
 };
