@@ -4,7 +4,7 @@ Track and save your cryptocurrency portfolios
 
 ## Installation
 
-Run ```npm install``` within the root directory
+Run `npm install` within the root directory
 
 ## Starting App
 
@@ -13,5 +13,6 @@ Run ```npm install``` within the root directory
 
 ## Usage
 
-
-
+- Add your cryptocurrency holdings by ticker, e.g. BTC -> Bitcoin
+- Save your portfolios
+- Prices update every 10 seconds
