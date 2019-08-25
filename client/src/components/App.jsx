@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Coin from './Coin';
 import axios from 'axios';
+import Chart from 'chart.js';
 
 const App = () => {
   const [coins, setCoin] = useState([ ]);
@@ -85,7 +86,7 @@ const App = () => {
       <table>
         <tbody>
           <tr> <td>Coin</td><td>Ticker</td><td>Current Price</td><td>Percent Change (1hr)</td> </tr>
-        { coins.map ( coin => <Coin coin={coin} key={coin.symbol}/> ) }
+            { coins.map ( coin => <Coin coin={coin} key={coin.symbol}/> ) }
         </tbody>
       </table>
     </div>
