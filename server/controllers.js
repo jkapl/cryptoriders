@@ -13,13 +13,14 @@ module.exports = {
         }
       }
     });
-    let idString = marketCapIDs.join(',');
+    let tickersForApi = marketCapIDs.join(',');
+    //coinmarketcap api for current data
     axios({
       method: 'get',
       url: `https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest`,
       headers: { 'X-CMC_PRO_API_KEY': config.cmc },
       params: {
-        id: `${idString}`
+        id: `${tickersForApi}`
       }
     })
     .then(({ data }) => {
@@ -36,5 +37,13 @@ module.exports = {
     .catch((err) => {
       console.log(err);
     });
+    //nomics api for historical data
+    axios({
+      method: 'get',
+      url: `https://api.nomics.com/v1/currencies/ticker?key=${config.nomics}&ids=${tickersForApi}&interval=1d,30d`
+    })
+    .then( ({ data }) => {
+      console.log(data);
+    })
   },
 };
