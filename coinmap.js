@@ -1,3 +1,4 @@
+//mappings for coinmarketcap API
 module.exports = {
     "status": {
         "timestamp": "2019-08-12T18:19:30.253Z",
