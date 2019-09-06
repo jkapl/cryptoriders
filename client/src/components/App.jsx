@@ -26,6 +26,18 @@ const App = () => {
     e.preventDefault();
   }
 
+//code to go inside callback
+// const sampleChart = new Chart(sampleChart, {
+//   type: "line",
+//   data: {
+//     labels: response.data.dates,
+//     datasets: [
+//       {
+//         data: response.data.prices
+//       }]
+//   }
+// })
+
   const savePortfolio = (e) => {
     addPortfolio([...portfolios, {name: portfolio, coins: coins}]);
     axios({
@@ -89,6 +101,9 @@ const App = () => {
             { coins.map ( coin => <Coin coin={coin} key={coin.symbol}/> ) }
         </tbody>
       </table>
+      <div>
+        <canvas style={{width: 800, height:300}} id="sampleChart" ></canvas>
+      </div>
     </div>
   );  
 }
