@@ -17,17 +17,12 @@ const App = () => {
   };
 
   const showPortfolio = (e) => {
-    console.log(e.target.value);
     axios.get(`/api/portfolios/${e.target.value}`)
       .then( ({ data }) => {
-        console.log(data);
         setCoin([...data.coins]);
       });
     e.preventDefault();
   }
-
-  // code to go inside callback
-
 
   const savePortfolio = (e) => {
     addPortfolio([...portfolios, {name: portfolio, coins: coins}]);
@@ -50,16 +45,6 @@ const App = () => {
     axios.get(`/api/tickers/${queryString}`)
       .then(( { data } ) => {
         setCoin([...data]);
-          const sampleChart = new Chart(sampleChart, {
-            type: "line",
-            data: {
-              labels: ["2018-08-15", "2018-08-16", "2018-08-17", "2018-08-18"],
-              datasets: [
-                {
-                  data: [6270.0425, 6314.2413, 6583.2388, 6395.3525]
-                }]
-            }
-          })
       })
     for (var i = 0; i < 99999; i++) {
       clearInterval(i);
@@ -71,6 +56,20 @@ const App = () => {
         })
     }, 15000);
   }, [coinToGet]);
+
+  useEffect(() => {
+    const sampleChart = document.getElementById("sampleChart");
+    const lineChart = new Chart(sampleChart, {
+      type: "line",
+        data: {
+          labels: ["2018-08-15", "2018-08-16", "2018-08-17", "2018-08-18"],
+          datasets: [
+            {
+              data: [6270.0425, 6314.2413, 6583.2388, 6395.3525]
+            }]
+        }
+      })
+  });
 
   return (
     <div>
