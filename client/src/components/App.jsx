@@ -46,15 +46,15 @@ const App = () => {
       .then(( { data } ) => {
         setCoin([...data]);
       })
-    for (var i = 0; i < 99999; i++) {
-      clearInterval(i);
-    }
-    let updatePrices = setInterval(()=> {
+    let intervalId = setInterval(()=> {
       axios.get(`/api/tickers/${queryString}`)
         .then(( { data } ) => {
           setCoin([...data]);
         })
     }, 15000);
+
+    //clean up on componentWillUnmount (hooks style)
+    return () => { clearInterval(intervalId) };
   }, [coinToGet]);
 
   useEffect(() => {
